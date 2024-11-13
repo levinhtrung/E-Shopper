@@ -14,6 +14,8 @@ import Register from './component/Member/Register';
 import Login from './component/Member/Login';
 import Home from './component/Home/Home';
 import Update from './component/Member/Update';
+import Product from './component/Product/Product';
+import AddProduct from './component/Product/AddProduct';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -27,6 +29,8 @@ root.render(
           <Route path='/login' element={<Login />}></Route>
           <Route path='/register' element={<Register />}></Route>
           <Route path='/account/update' element={<Update />}></Route>
+          <Route path='/account/my-product' element={<Product />}></Route>
+          <Route path='/account/create-product' element={<AddProduct />}></Route>
         </Routes>
       </App>
     </Router>

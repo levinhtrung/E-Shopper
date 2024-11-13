@@ -16,6 +16,7 @@ function Update() {
         address: "",
         avatar: "",
     })
+    
     useEffect(() => {
         let userData = localStorage.getItem("userData")
         if (userData) {
@@ -30,7 +31,7 @@ function Update() {
             });
         } else {
             alert("Vui lòng đăng nhập")
-            // navigate("/login")
+            navigate("/login")
         }
     }, [])
     const handleInput = (e) => {
@@ -40,15 +41,6 @@ function Update() {
     }
     const validateFile = ["png", "jpg", "jpeg", "PNG", "JPG"]
 
-    function IsEmail(email) {
-        const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!regex.test(email)) {
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
     function handleFile(e) {
         const file = e.target.files
 
@@ -99,7 +91,6 @@ function Update() {
             }
         }
         let url = "http://web1.test/laravel8/public/api/user/update/" + userData.Auth.id
-
         let accessToken = userData.token;
         let config = {
             headers: {
@@ -108,7 +99,7 @@ function Update() {
                 'Accept': 'application/json'
             }
         }
-        if (flag == true) {
+        if (flag === true) {
             const formData = new FormData()
             formData.append('name', user.name);
             formData.append('email', user.email);
@@ -118,12 +109,12 @@ function Update() {
             formData.append('avatar', getAvatar);
             formData.append('level', 0);
             axios.post(url, formData, config)
-                .then(res => {
-                    setErrors("")
-                    alert("Update thanh cong")
-                    localStorage.setItem("userData", JSON.stringify(res.data))
-                })
-                .catch(error => console.log(error))
+            .then(res => {
+                setErrors("")
+                alert("Update thanh cong")
+                localStorage.setItem("userData", JSON.stringify(res.data))
+            })
+            .catch(error => console.log(error))
         } else {
             setErrors(errorSubmit)
         }

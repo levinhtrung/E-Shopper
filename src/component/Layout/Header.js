@@ -19,7 +19,7 @@ function Header(props) {
     function renderAccout(){
       if(authLogin === true){
         return(
-          <li><Link to="/account"><i className="fa fa-lock"></i>Account</Link></li> 
+          <li><Link to="/account/update"><i className="fa fa-lock"></i>Account</Link></li> 
         )
       }
     }
