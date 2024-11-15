@@ -12,7 +12,7 @@ function AddProduct() {
         price: "",
         category: "",
         brand: "",
-        status: 0,
+        status: 1,
         image: "",
         sale: 0,
         company: "",
@@ -26,6 +26,7 @@ function AddProduct() {
     }
     function hanldeFile(e) {
         const file = e.target.files;
+        console.log(file,'>>>>>>');
         setFile(file);
     }
     useEffect(()=>{
@@ -75,8 +76,8 @@ function AddProduct() {
             errorSubmit.brand = "vui long nhap brand san pham";
             flag = false;
         }
-        if(inputs.status === ""){
-            errorSubmit.status = "vui long chon 1 trong 2 muc sale san pham";
+        if(inputs.status === "0" && inputs.sale === ""){
+            errorSubmit.sale = "vui long chon muc sale (>0) san pham";
             flag = false;
         }
         if(inputs.company === ""){
@@ -88,13 +89,13 @@ function AddProduct() {
             flag = false
         }
         if(selectFile === ""){
-            errorSubmit.file = "vui long chon file";
+            errorSubmit.file = "vui long upload file";
             flag = false;
         } else {
-            let getSize = selectFile.size;
-            let getName = selectFile.name;
+            let getSize = selectFile[0].size;
+            let getName = selectFile[0].name;
             let fileExtension = getName.split('.').pop().toLowerCase()
-
+            
             if(getSize > 1024 * 1024){
                 errorSubmit.file = "Ảnh có kích thước lớn"
                 flag = false;
@@ -104,9 +105,11 @@ function AddProduct() {
                 flag = false;
             }
         }
-        let userData = localStorage.getItem("userData")
+        let userData = JSON.parse(localStorage.getItem("userData"))
+        
         let url = "http://web1.test/laravel8/public/api/user/product/add"
         let accessToken = userData.token;
+        
         let config = {
             headers: {
                 'Authorization': 'Bearer ' + accessToken,
@@ -126,10 +129,13 @@ function AddProduct() {
             formData.append('sale', inputs.sale);
             Object.keys(selectFile).map((key, index)=>{
                 formData.append("file[]", selectFile[key])
+                console.log(selectFile[key]);
             })
+            console.log(formData);
             axios.post(url, formData, config)
             .then(res => {
                 setErrors("")
+                console.log(res);
                 alert("Dang ky san pham thanh cong")
             })
             .catch(error => console.log(error))
@@ -141,7 +147,8 @@ function AddProduct() {
         if(inputs.status === "0"){
             return(
                 <div>
-                    <input type="text" name="sale" onChange={handleInput} value={inputs.sale}></input>
+                    <input style={{width: "100px", float: "left"}} type="text" name="sale" onChange={handleInput} value={inputs.sale}></input>
+                    <span style={{width:"100px", padding:"9px 2px 0 5px" ,float: "left"}}>%</span>
                 </div>
             )
         }
@@ -168,7 +175,7 @@ function AddProduct() {
                     </select>
                     {renderSale()}
                     <input type="text" placeholder="Company profile" name='company' value={inputs.company} onChange={handleInput}/>
-                    <input type="file" name='file' onChange={hanldeFile} />
+                    <input multiple type="file" name='file' onChange={hanldeFile} />
                     <textarea placeholder="Detail" value={inputs.detail} name="detail" onChange={handleInput} />
                     <button type="submit" className="btn btn-default">Create</button>
                 </form>
