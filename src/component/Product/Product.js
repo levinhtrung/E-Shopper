@@ -15,6 +15,15 @@ function Product() {
             'Accept': 'application/json'
         }
     }
+    function Delete(e){
+        const IDdelete = e.target.id
+        axios.get("http://web1.test/laravel8/public/api/user/product/delete/" + IDdelete , config)
+          .then(res => {
+            setProduct(res.data.data)
+            console.log(res.data.data);
+          })
+          .catch(error => console.log(error))
+    }
     useEffect(()=>{
         axios.get("http://web1.test/laravel8/public/api/user/my-product",config)
         .then(res => {
@@ -45,10 +54,10 @@ function Product() {
                       ${products[key]['price']}
                     </td>
                     <td className='cart_update'>
-                      <Link to={"/account/my-product/update/" + products[key]['id']} id={products[key]['id']} className="btn btn-primary" style={{float: "left"}} >Update Product</Link>
+                      <Link to={"/account/update/" + products[key]['id']} id={products[key]['id']} className="btn btn-primary" style={{float: "left"}} >Update Product</Link>
                     </td>
                     <td style={{borderTop: "none"}} className="cart_delete">
-                      <Link to="" id={products[key]['id']} className="cart_quantity_delete" style={{background: "#FE980F"}} ><i id={products[key]['id']} className="fa fa-times" /></Link>
+                      <Link to="" onClick={Delete} id={products[key]['id']} className="cart_quantity_delete" style={{background: "#FE980F"}} ><i id={products[key]['id']} className="fa fa-times" /></Link>
                     </td>
                   </tr>
                 </tbody>

@@ -30,6 +30,13 @@ function Header(props) {
       navigate('/login');
       localStorage.clear();
     }
+    function renderCart() {
+      if(authLogin == true) {
+        return (
+            <li><Link to="/cart" className="cart-total"><i className="fa fa-shopping-cart"></i> Cart</Link></li>
+        )
+      }
+    }
     return(
       <>
         <header id="header">
@@ -97,7 +104,8 @@ function Header(props) {
                       {renderAccout()}
                       <li><Link to="#"><i className="fa fa-star" /> Wishlist</Link></li>
                       <li><Link to="#"><i className="fa fa-crosshairs" /> Checkout</Link></li>
-                      <li><Link to="#"><i className="fa fa-shopping-cart fa-cart" /> Cart</Link></li>
+                      {renderCart()}
+                      {/* <li><Link to="#"><i className="fa fa-shopping-cart fa-cart" /> Cart</Link></li> */}
                       {/* {authLogin ? (
                         <li><Link to="/login" onClick={logout}><i className="fa fa-lock"></i>Logout</Link></li>
                       ) : (

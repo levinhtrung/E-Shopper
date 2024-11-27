@@ -16,6 +16,9 @@ import Home from './component/Home/Home';
 import Update from './component/Member/Update';
 import Product from './component/Product/Product';
 import AddProduct from './component/Product/AddProduct';
+import UpdateProduct from './component/Product/UpdateProduct';
+import ProductDetail from './component/Product/ProductDetail';
+import Cart from './component/Product/Cart';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -31,6 +34,9 @@ root.render(
           <Route path='/account/update' element={<Update />}></Route>
           <Route path='/account/my-product' element={<Product />}></Route>
           <Route path='/account/create-product' element={<AddProduct />}></Route>
+          <Route path='/account/update/:id' element={<UpdateProduct />}></Route>
+          <Route path='/product/detail/:id' element={<ProductDetail />} />
+          <Route path='/cart' element={<Cart />} />
         </Routes>
       </App>
     </Router>
