@@ -1,8 +1,15 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../UserContext";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../reducers/hobby";
 
 function Home(){
+    // const hobbyList = useSelector(state => state.hobby.list)
+    // console.log(hobbyList);
+    const dispatch = useDispatch()
+    
     const [prodData, setProd] = useState([]);
     const userData = JSON.parse(localStorage.getItem('userData'));
     let id
@@ -52,16 +59,24 @@ function Home(){
           })
       }
     }
-    function addProduct(e){
-        const idProd = e.target.id
-        const objProd = {}
-        console.log(idProd);
-        let checkLogin = JSON.parse(localStorage.getItem('authData'))
-        if(checkLogin){
-          
-        } else {
-          alert("Vui long dang nhap")
-        }
+    // const { updateQty } = useContext(UserContext);
+    function addProduct(e) {
+      const idProd = e.target.id;
+      let checkLogin = JSON.parse(localStorage.getItem('authData'));
+      if (checkLogin) {
+        dispatch(addToCart(idProd));
+          // let cart = JSON.parse(localStorage.getItem('dataCart')) || {};
+          // if (cart[idProd]) {
+          //     cart[idProd] += 1;
+          // } else {
+          //     cart[idProd] = 1;
+          // }
+          // const totalQty = Object.values(cart).reduce((sum, qty) => sum + qty, 0);
+          // updateQty(totalQty);
+          // localStorage.setItem('dataCart', JSON.stringify(cart)); 
+      } else {
+          alert("Vui lòng đăng nhập");
+      }
     }
     return(
         <div className="col-sm-9 padding-right">

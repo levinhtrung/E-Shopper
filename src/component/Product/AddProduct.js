@@ -26,13 +26,11 @@ function AddProduct() {
     }
     function hanldeFile(e) {
         const file = e.target.files;
-        console.log(file,'>>>>>>');
         setFile(file);
     }
     useEffect(()=>{
         axios.get("http://web1.test/laravel8/public/api/category-brand")
         .then(res =>{
-            console.log(res)
             setCategory(res.data.category)
             setBrand(res.data.brand)
         })
@@ -129,9 +127,7 @@ function AddProduct() {
             formData.append('sale', inputs.sale);
             Object.keys(selectFile).map((key, index)=>{
                 formData.append("file[]", selectFile[key])
-                console.log(selectFile[key]);
             })
-            console.log(formData);
             axios.post(url, formData, config)
             .then(res => {
                 setErrors("")

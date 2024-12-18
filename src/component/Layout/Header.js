@@ -1,9 +1,17 @@
 import { Link, useNavigate } from "react-router-dom";
+// import React, { useContext } from "react";
 import React from "react";
+import { useSelector } from "react-redux";
+// import { UserContext } from "../../UserContext";
 
 function Header(props) {
+    // const {totalQty} = useContext(UserContext)
     const authLogin = JSON.parse(localStorage.getItem('authData'))
     const navigate = useNavigate()
+    const totalQty = useSelector((state) =>
+      Object.values(state.hobby.items).reduce((sum, qty) => sum + qty, 0)
+    );
+    
     function renderLogin(){
       if(authLogin === true){
         // console.log(authLogin);
@@ -31,9 +39,9 @@ function Header(props) {
       localStorage.clear();
     }
     function renderCart() {
-      if(authLogin == true) {
+      if(authLogin === true) {
         return (
-            <li><Link to="/cart" className="cart-total"><i className="fa fa-shopping-cart"></i> Cart</Link></li>
+            <li><Link to="/cart" className="cart-total"><i className="fa fa-shopping-cart"></i> Cart: {totalQty}</Link></li>
         )
       }
     }

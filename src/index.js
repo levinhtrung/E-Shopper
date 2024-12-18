@@ -19,28 +19,33 @@ import AddProduct from './component/Product/AddProduct';
 import UpdateProduct from './component/Product/UpdateProduct';
 import ProductDetail from './component/Product/ProductDetail';
 import Cart from './component/Product/Cart';
+import { Provider } from 'react-redux';
+import store from './store';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <Router>
-      <App>
-        <Routes>
-          {/* <Route exact path='/' element={<Home/>}></Route> */}
-          <Route path='/' element={<Home />}></Route>
-          <Route path='/blog/list' element={<Index />}></Route>
-          <Route path='/blog/detail/:id' element={<Detail />}></Route>
-          <Route path='/login' element={<Login />}></Route>
-          <Route path='/register' element={<Register />}></Route>
-          <Route path='/account/update' element={<Update />}></Route>
-          <Route path='/account/my-product' element={<Product />}></Route>
-          <Route path='/account/create-product' element={<AddProduct />}></Route>
-          <Route path='/account/update/:id' element={<UpdateProduct />}></Route>
-          <Route path='/product/detail/:id' element={<ProductDetail />} />
-          <Route path='/cart' element={<Cart />} />
-        </Routes>
-      </App>
-    </Router>
-  </React.StrictMode>
+  <Provider store={store}>
+    <React.StrictMode>
+      <Router>
+        <App>
+          <Routes>
+            {/* <Route exact path='/' element={<Home/>}></Route> */}
+            <Route path='/' element={<Home />}></Route>
+            <Route path='/blog/list' element={<Index />}></Route>
+            <Route path='/blog/detail/:id' element={<Detail />}></Route>
+            <Route path='/login' element={<Login />}></Route>
+            <Route path='/register' element={<Register />}></Route>
+            <Route path='/account/update' element={<Update />}></Route>
+            <Route path='/account/my-product' element={<Product />}></Route>
+            <Route path='/account/create-product' element={<AddProduct />}></Route>
+            <Route path='/account/update/:id' element={<UpdateProduct />}></Route>
+            <Route path='/product/detail/:id' element={<ProductDetail />} />
+            <Route path='/cart' element={<Cart />} />
+          </Routes>
+        </App>
+      </Router>
+    </React.StrictMode>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
